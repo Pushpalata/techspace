@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>RubyCritic</title>
+    <link href="../../assets/stylesheets/application.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../assets/stylesheets/prettify.custom_theme.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <header class="project-header group">
+      <div class="container">
+        <h1 class="logo"><a href="../../overview.html" class="logo-link">RubyCritic</a></h1>
+        <nav class="project-nav">
+          <a href="../../overview.html" class="project-nav-item">Overview</a>
+          <a href="../../code_index.html" class="project-nav-item">Code</a>
+          <a href="../../smells_index.html" class="project-nav-item">Smells</a>
+        </nav>
+      </div>
+    </header>
+    <div class="container">
+      <div class="file-header group rated">
+  <span class="rating rating-a circled-text circle">
+    A
+  </span>
+  <h2 class="file-name">AddressesController</h2>
+
+  <span class="file-committed-at">
+    
+      Updated <time class='js-timeago' datetime='2015-11-23 12:50:00 +0530'>2015-11-23 12:50:00 +0530</time>
+    
+  </span>
+
+  <div class="file-stats group">
+    <div class="file-stat">
+      25 complexity
+    </div>
+    <div class="file-stat">
+      2.8 complexity per method
+    </div>
+    <div class="file-stat">
+      3 churn
+    </div>
+    <div class="file-stat">
+      9 methods
+    </div>
+    <div class="file-stat">
+      0 duplication
+    </div>
+  </div>
+
+  
+</div>
+
+<code class="prettyprint linenums lang-ruby file-code js-file-code">class AddressesController &lt; ApplicationController
+  caches_page :index
+  before_filter :set_address, :only =&gt; [:my_address, :update, :edit, :show]
+
+  def index
+    @addresses = Address.all
+  end
+  
+  def my_address
+  end
+  
+  def new
+    @address = Address.new
+  end
+  
+  def create
+    @address = current_user.build_address(address_params)
+    if @address.save
+      expire_page action: &#39;index&#39;
+      redirect_to my_address_path, notice: &#39;Address was successfully created.&#39; 
+    else
+      render :new
+    end
+  end
+  
+  def update
+    if @address.update(address_params)
+      expire_page action: &#39;index&#39;
+      redirect_to my_address_path, notice: &#39;Address was successfully updated.&#39; 
+    else
+      render :edit
+    end
+  end
+  
+  def edit
+  end
+  
+  def show
+  end
+  
+  private
+  
+  def address_params
+    params.require(:address).permit(:country_id, :city, :state, :address_line1)
+  end
+  
+  def set_address
+    @address = current_user.address
+  end
+  
+end
+</code>
+
+    </div>
+    <script src='../../assets/javascripts/jquery-2.1.0.js'></script>
+    <script src='../../assets/javascripts/jquery.tablesorter.js'></script>
+    <script src='../../assets/javascripts/jquery.floatThead-v1.2.7.js'></script>
+    <script src='../../assets/javascripts/jquery.timeago-v1.4.1.js'></script>
+    <script src='../../assets/javascripts/highcharts.src-4.0.1.js'></script>
+    <script src='../../assets/javascripts/jquery.scrollTo-1.4.11.js'></script>
+    <script src='../../assets/javascripts/prettify-4-Mar-2013.js'></script>
+    <script src='../../assets/javascripts/application.js'></script>
+  </body>
+</html>

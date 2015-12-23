@@ -1,0 +1,16 @@
+.profile-cnt
+  = render :partial => "home/profile_menu"
+  .row
+    .col-sm-6
+      .row.mgbt-xs-0
+        %label.col-xs-5.control-label Name:
+        .col-xs-7.controls 
+          = @user.name
+    .col-sm-6
+      .row.mgbt-xs-0
+        %label.col-xs-5.control-label Email:
+        .col-xs-7.controls
+          = @user.email
+    .clear
+  .clear
+.clear

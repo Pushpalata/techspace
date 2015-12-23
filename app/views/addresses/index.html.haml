@@ -1,0 +1,14 @@
+- cache("techspacer") do 
+  .info-message
+    Position for Techspacer's
+  :javascript
+    var addresses = [];
+  - Address.all.each do |address|
+    :javascript
+      var mark = [];
+      mark.push("#{address.user.name}");
+      mark.push("#{address.latitude}");
+      mark.push("#{address.longitude}");
+      addresses.push(mark)
+  = javascript_include_tag "mapaddress"
+  #map_canvas

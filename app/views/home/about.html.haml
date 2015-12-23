@@ -1,0 +1,28 @@
+.about-wrapper
+  %h1
+    About Techspace
+  %p
+    All Feature implemented in this site are achived with some great ruby gem.
+  %p
+    Below is the detailed description about what gems are used and for what purpose.
+  %table
+    %tr
+      %th
+        Gem
+      %th
+        Functionality
+      %th
+        In Techspace
+      %th
+        Notes
+    - gem_collection.each do |gem_name, func, inuse, link, notes|
+      %tr
+        %td.name-link
+          = link_to gem_name, link, :target => "blank"
+        %td
+          = func
+        %td
+          = inuse
+        %td
+          = notes
+        

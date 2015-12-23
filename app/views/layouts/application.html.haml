@@ -1,0 +1,48 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=US-ASCII", "http-equiv" => "Content-Type"}/
+    %title Techspace
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body
+    %header
+      #header-bar
+        .menu-cnt
+          &nbsp;
+        .logo-cnt
+          %h2
+            Tech Space
+        .account-cnt
+          - if user_signed_in?
+            Welcome, 
+            = current_user.name
+            %br
+            = link_to "Sign Out", destroy_user_session_path, :method => :delete
+    #menu-bar
+      %ul
+        = check_box_tag :switch, false, false, :class => "switchbox"
+        .menu-icon
+        - params_string = "#{params[:controller]}_#{params[:action]}"
+        %li{:class => active_klass(["home_index"], params_string)}
+          = link_to "Home", root_path
+        %li{:class => active_klass(["home_my_profile", "addresses_show", "addresses_edit"], params_string)}
+          = link_to "My Profile", my_profile_path
+        %li{:class => active_klass(["home_login_activity"], params_string)}
+          = link_to "Login Timeline", login_activity_path
+        %li{:class => active_klass(["home_full_activity"], params_string)}
+          = link_to "Full Log", full_activity_path
+        %li{:class => active_klass(["addresses_index"], params_string)}
+          = link_to "Techspacers", addresses_path
+        %li{:class => active_klass(["posts_index"], params_string)}
+          = link_to "Blog", posts_path
+        %li{:class => active_klass(["home_about"], params_string)}
+          = link_to "About", about_path
+      .clear
+    .main-container
+      = yield
+    - if flash[:notice].present?
+      = js add_gritter(flash[:notice], :image => :success, :time => 2000)
+    - elsif flash[:alert].present?
+      = js add_gritter(flash[:alert], :image => :error, :time => 2000)

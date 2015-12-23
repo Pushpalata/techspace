@@ -1,0 +1,12 @@
+.timeline-cnt
+  %ul.timeline
+    - current_user.feeds.each do |feed|
+      %li
+        %div{:class => "#{cycle('direction-r', 'direction-l')}"}
+          .flag-wrapper
+            %span.flag 
+              = feed.created_at.strftime("%b %d, %Y %H:%M %p")
+            %span.time-wrapper
+              %span.time 
+          .desc 
+            = feed.message

@@ -1,0 +1,41 @@
+.profile-cnt
+  = render :partial => "home/profile_menu"
+  .row
+    - if @address.present?
+      .menu-cnt
+        = link_to "Edit", edit_address_path(@address)
+      .clear
+      .col-sm-12
+        .row.mgbt-xs-0
+          %label.col-xs-2.control-label Address Line:
+          .col-xs-10.controls.pdlf-xs-10
+            = @address.address_line1
+      .clear
+      .col-sm-6
+        .row.mgbt-xs-0
+          %label.col-xs-4.control-label City:
+          .col-xs-8.controls 
+            = @address.city
+      .col-sm-6
+        .row.mgbt-xs-0
+          %label.col-xs-4.control-label State:
+          .col-xs-8.controls
+            = @address.state
+      .clear
+      .col-sm-6
+        .row.mgbt-xs-0
+          %label.col-xs-4.control-label Country:
+          .col-xs-8.controls 
+            %div
+              = @address.country.name
+      .clear
+    - else
+      .menu-cnt
+        = link_to "Add", new_address_path
+      .clear
+      %center.row
+        You have not added your address!!!
+        .clear
+        Add Address to see yourself in Map :)
+  .clear
+.clear

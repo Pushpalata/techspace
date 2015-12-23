@@ -1,0 +1,17 @@
+.timeline-cnt
+  %ul.timeline
+    - current_user.visits.where("Date(started_at) > ?", Date.today - 2.days).each do |visit|
+      %li
+        .visit-point
+          Visited Site on
+          = visit.started_at.strftime("%b %d, %Y %H:%M %p")
+      - visit.ahoy_events.each do |event|
+        %li
+          %div{:class => "#{cycle('direction-r', 'direction-l')}"}
+            .flag-wrapper
+              %span.flag 
+                = event.name.gsub("$", "")
+              %span.time-wrapper
+                %span.time 
+            .desc 
+              = htmlsafe_event(event.name, event.time, event.properties)

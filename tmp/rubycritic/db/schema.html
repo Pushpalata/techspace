@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>RubyCritic</title>
+    <link href="../assets/stylesheets/application.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../assets/stylesheets/prettify.custom_theme.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <header class="project-header group">
+      <div class="container">
+        <h1 class="logo"><a href="../overview.html" class="logo-link">RubyCritic</a></h1>
+        <nav class="project-nav">
+          <a href="../overview.html" class="project-nav-item">Overview</a>
+          <a href="../code_index.html" class="project-nav-item">Code</a>
+          <a href="../smells_index.html" class="project-nav-item">Smells</a>
+        </nav>
+      </div>
+    </header>
+    <div class="container">
+      <div class="file-header group rated">
+  <span class="rating rating-b circled-text circle">
+    B
+  </span>
+  <h2 class="file-name">Schema</h2>
+
+  <span class="file-committed-at">
+    
+      Updated <time class='js-timeago' datetime='2015-11-20 15:24:02 +0530'>2015-11-20 15:24:02 +0530</time>
+    
+  </span>
+
+  <div class="file-stats group">
+    <div class="file-stat">
+      93 complexity
+    </div>
+    <div class="file-stat">
+      N/A complexity per method
+    </div>
+    <div class="file-stat">
+      2 churn
+    </div>
+    <div class="file-stat">
+      0 methods
+    </div>
+    <div class="file-stat">
+      0 duplication
+    </div>
+  </div>
+
+  
+    <button id="js-toggle-smells" class="smells-toggle-button button">Toggle Smells</button>
+  
+</div>
+
+<code class="prettyprint linenums lang-ruby file-code js-file-code"># encoding: UTF-8
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you&#39;ll amass, the slower it&#39;ll run and the greater likelihood for issues).
+#
+# It&#39;s strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema.define(version: 20151123084111) do
+
+  create_table &quot;addresses&quot;, force: true do |t|
+    t.string   &quot;city&quot;
+    t.integer  &quot;country_id&quot;
+    t.string   &quot;address_line1&quot;
+    t.string   &quot;state&quot;
+    t.float    &quot;latitude&quot;,      limit: 24
+    t.float    &quot;longitude&quot;,     limit: 24
+    t.integer  &quot;user_id&quot;
+    t.datetime &quot;created_at&quot;
+    t.datetime &quot;updated_at&quot;
+  end
+
+  create_table &quot;ahoy_events&quot;, force: true do |t|
+    t.uuid     &quot;visit_id&quot;
+    t.integer  &quot;user_id&quot;
+    t.string   &quot;name&quot;
+    t.text     &quot;properties&quot;
+    t.datetime &quot;time&quot;
+  end
+
+  add_index &quot;ahoy_events&quot;, [&quot;time&quot;], name: &quot;index_ahoy_events_on_time&quot;, using: :btree
+  add_index &quot;ahoy_events&quot;, [&quot;user_id&quot;], name: &quot;index_ahoy_events_on_user_id&quot;, using: :btree
+  add_index &quot;ahoy_events&quot;, [&quot;visit_id&quot;], name: &quot;index_ahoy_events_on_visit_id&quot;, using: :btree
+
+  create_table &quot;countries&quot;, force: true do |t|
+    t.string   &quot;name&quot;
+    t.string   &quot;code&quot;
+    t.datetime &quot;created_at&quot;
+    t.datetime &quot;updated_at&quot;
+  end
+
+  create_table &quot;feeds&quot;, force: true do |t|
+    t.integer  &quot;user_id&quot;
+    t.string   &quot;feedable_type&quot;
+    t.integer  &quot;feedable_id&quot;
+    t.string   &quot;message&quot;
+    t.text     &quot;description&quot;
+    t.string   &quot;action_trigger&quot;
+    t.datetime &quot;created_at&quot;
+    t.datetime &quot;updated_at&quot;
+  end
+
+  create_table &quot;users&quot;, force: true do |t|
+    t.string   &quot;name&quot;
+    t.datetime &quot;created_at&quot;
+    t.datetime &quot;updated_at&quot;
+    t.string   &quot;email&quot;,                  default: &quot;&quot;, null: false
+    t.string   &quot;encrypted_password&quot;,     default: &quot;&quot;, null: false
+    t.string   &quot;reset_password_token&quot;
+    t.datetime &quot;reset_password_sent_at&quot;
+    t.datetime &quot;remember_created_at&quot;
+    t.integer  &quot;sign_in_count&quot;,          default: 0,  null: false
+    t.datetime &quot;current_sign_in_at&quot;
+    t.datetime &quot;last_sign_in_at&quot;
+    t.string   &quot;current_sign_in_ip&quot;
+    t.string   &quot;last_sign_in_ip&quot;
+    t.string   &quot;ref_uid&quot;
+  end
+
+  add_index &quot;users&quot;, [&quot;email&quot;], name: &quot;index_users_on_email&quot;, unique: true, using: :btree
+  add_index &quot;users&quot;, [&quot;reset_password_token&quot;], name: &quot;index_users_on_reset_password_token&quot;, unique: true, using: :btree
+
+  create_table &quot;visits&quot;, force: true do |t|<ul class="nocode smells js-smells">  <li class="smell new">    <span class="description">(HighComplexity) create_table#visits has a flog score of 34          </span>  </li></ul>
+    t.uuid     &quot;visitor_id&quot;
+    t.string   &quot;ip&quot;
+    t.text     &quot;user_agent&quot;
+    t.text     &quot;referrer&quot;
+    t.text     &quot;landing_page&quot;
+    t.integer  &quot;user_id&quot;
+    t.string   &quot;referring_domain&quot;
+    t.string   &quot;search_keyword&quot;
+    t.string   &quot;browser&quot;
+    t.string   &quot;os&quot;
+    t.string   &quot;device_type&quot;
+    t.integer  &quot;screen_height&quot;
+    t.integer  &quot;screen_width&quot;
+    t.string   &quot;country&quot;
+    t.string   &quot;region&quot;
+    t.string   &quot;city&quot;
+    t.string   &quot;postal_code&quot;
+    t.decimal  &quot;latitude&quot;,         precision: 10, scale: 0
+    t.decimal  &quot;longitude&quot;,        precision: 10, scale: 0
+    t.string   &quot;utm_source&quot;
+    t.string   &quot;utm_medium&quot;
+    t.string   &quot;utm_term&quot;
+    t.string   &quot;utm_content&quot;
+    t.string   &quot;utm_campaign&quot;
+    t.datetime &quot;started_at&quot;
+  end
+
+  add_index &quot;visits&quot;, [&quot;user_id&quot;], name: &quot;index_visits_on_user_id&quot;, using: :btree
+
+end
+</code>
+
+    </div>
+    <script src='../assets/javascripts/jquery-2.1.0.js'></script>
+    <script src='../assets/javascripts/jquery.tablesorter.js'></script>
+    <script src='../assets/javascripts/jquery.floatThead-v1.2.7.js'></script>
+    <script src='../assets/javascripts/jquery.timeago-v1.4.1.js'></script>
+    <script src='../assets/javascripts/highcharts.src-4.0.1.js'></script>
+    <script src='../assets/javascripts/jquery.scrollTo-1.4.11.js'></script>
+    <script src='../assets/javascripts/prettify-4-Mar-2013.js'></script>
+    <script src='../assets/javascripts/application.js'></script>
+  </body>
+</html>

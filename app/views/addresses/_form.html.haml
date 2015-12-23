@@ -1,0 +1,32 @@
+= form_for @address do |f|
+  .row
+    .col-sm-12
+      .row.mgbt-xs-0
+        %label.col-xs-2.control-label Address Line:
+        .col-xs-10.controls.pdlf-xs-10
+          = f.text_field :address_line1
+    .clear
+    .col-sm-6
+      .row.mgbt-xs-0
+        %label.col-xs-4.control-label City:
+        .col-xs-8.controls 
+          = f.text_field :city
+    .col-sm-6
+      .row.mgbt-xs-0
+        %label.col-xs-4.control-label State:
+        .col-xs-8.controls
+          = f.text_field :state
+    .clear
+    .col-sm-6
+      .row.mgbt-xs-0
+        %label.col-xs-4.control-label Country:
+        .col-xs-8.controls 
+          %div
+            = f.select :country_id, Country.all.collect{|c| [c.name, c.id]}, :prompt => true
+    .clear
+    .col-sm-6
+      .row.mgbt-xs-0
+        .col-xs-6
+          = f.submit "Save"
+    .clear
+.clear
